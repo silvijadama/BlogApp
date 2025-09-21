@@ -1,13 +1,11 @@
 
 import './App.css';
-import React, {useEffect, useRef, useState} from "react";
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
-import NodePage from "./pages/NodePage";
+import React, {useEffect, useState} from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import RegisterNodePage from "./pages/RegisterNodePage";
 import LoginNodePage from "./pages/LoginNodePage";
 import CreatePostNode from "./pages/CreatePostNode";
 import AllPostNode from "./pages/AllPostNode";
-import EditPostNode from "./pages/EditPostNode";
 import ProfileNodePage from "./pages/ProfileNodePage";
 import ToolbarMenu from "./components/ToolbarMenu";
 import SingleAiPostPage from "./pages/SingleAiPostPage";
