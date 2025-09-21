@@ -41,7 +41,7 @@ Router.post("/adduser", validateRegister, addUser)
 Router.post("/login", validateLogin, login)
 Router.post("/createpost", jwtDecode, createpost)
 Router.post("/poke", jwtDecode, pokeUser)
-Router.post("/posts/:post_id/comment", jwtDecode, addComment)
+Router.post("/posts/id/:post_id/comment", jwtDecode, addComment)
 
 Router.put("/profile/edit", jwtDecode, edit)
 

@@ -26,8 +26,6 @@ async function callGemini(prompt) {
         );
 
         console.log(response.data);
-        // console.log('content' + response.data.candidates?.[0].content);
-        // console.log('content: ' + JSON.stringify(response.data.candidates?.[0].content, null, 2));
 
         return response.data.candidates?.[0]?.content?.parts?.[0]?.text || "No response";
     } catch (error) {

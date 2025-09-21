@@ -1,7 +1,6 @@
 
 const userDb = require("../models/userSchema")
 const bcrypt = require("bcrypt")
-const userPostDb = require("../models/userPostSchema")
 const aiPostDb = require("../models/aiPostScema")
 const {jwtEncode} = require("../middleware/authorisation")
 const ai = require("../ai")
@@ -86,13 +85,7 @@ module.exports = {
     posts: async (req, res) => {
         let posts = await aiPostDb.find({})
 
-        let sortedPosts = posts.sort((a, b) => a.time - b.time)
-
-        if (req.query.sort === "desc") {
-            sortedPosts = posts.sort((a,b) => b.time - a.time)
-        }
-
-        return res.json({ success: true, posts: sortedPosts })
+        return res.json({ success: true, posts: posts })
     },
     createpost: async (req, res) =>{
 
@@ -162,8 +155,6 @@ module.exports = {
             user_id: currentUser.id
         }
 
-
-
         singlePost.comments.push(newComment)
         console.log(singlePost, 'single post data', newComment, "new comment added")
 
@@ -193,7 +184,6 @@ module.exports = {
                 { new: true }
             )
 
-
             if(!updatedProfile){
                 return res.json({ success: false, message: "User not found" })
             }
@@ -203,8 +193,6 @@ module.exports = {
         } catch (error){
             return res.json({ success: false, error: error.message })
         }
-
-
     },
 
     allusers: async (req, res) => {
@@ -240,7 +228,6 @@ module.exports = {
             // }
 
             pokedUser.pokedUsersArr.push(loggedUserId)
-            // console.log(pokedUser.pokedUsersArr, "poked users array")
             await pokedUser.save()
             console.log(`User ${loggedUser.username} poked user ${pokedUser.username}`)
 
@@ -256,7 +243,6 @@ module.exports = {
             const loggedUserId = req.user.id
             const loggedUser = await userDb.findById(loggedUserId).populate("pokedUsersArr", "username email")
             console.log(loggedUser, "currently logged user and pokes array", loggedUser.pokedUsersArr)
-
 
             if(!loggedUser){
                 return res.json({success: false, message: "User not found"})
@@ -282,28 +268,5 @@ module.exports = {
         } catch (error){
             return res.json({ success: false, error: error.message })
         }
-
     },
-
-
-    // deletepost: async (req, res) =>{
-    //     const {post_id} = req.body
-    //     const loggedUser = req.user
-    //
-    //     // const token = await jwtEncode(newUser)
-    //     // console.log(token, "this is new token")
-    //
-    //     const post = await userPostDb.findOne({ _id: post_id })
-    //
-    //     if (!post) {
-    //         return res.json({ success: false, message: "Post not found" })
-    //     }
-    //
-    //     if (post.user_id.toString() !== loggedUser.id.toString()) {
-    //         return res.json({ success: false, message: "Not your post!" })
-    //     }
-    //
-    //     await userPostDb.deleteOne({ _id: post_id })
-    //     return res.json({ success: true, message: "Post deleted" })
-    // },
 }

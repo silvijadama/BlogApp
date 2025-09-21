@@ -20,7 +20,6 @@ const io = new Server(httpServer, {
 
 const connectedUsersList = []
 
-
 function isUserConnected(newlyLoggedUser){
     for (const user of connectedUsersList) {
         if (user.username === newlyLoggedUser) {
@@ -79,7 +78,6 @@ io.on("connection", (socket) => {
         socket.on("disconnect", () =>{
             console.log("User disconnected:", socket.id)
         })
-
 });
 
 dotenv.config()
