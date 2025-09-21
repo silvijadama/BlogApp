@@ -94,7 +94,6 @@ const AllPostNode = ({setPosts, getPosts, loggedUser}) => {
 
     return (
         <div>
-
             <div className="flex j-center">
                 <h2 className="pad">ALL USERS</h2>
             </div>
@@ -111,7 +110,7 @@ const AllPostNode = ({setPosts, getPosts, loggedUser}) => {
 
             {loggedUser && (
                 <Link to={`/createpost`} className="btn btn-secondary">
-                    Create new post {loggedUser.username}!
+                    Create new post, {loggedUser.username}!
                 </Link>
             )}
 
@@ -125,33 +124,19 @@ const AllPostNode = ({setPosts, getPosts, loggedUser}) => {
                 {getPosts.map((post, index)=>
                     <div className="card border pad"  key={index}>
                         <img src={post.image} alt="Post Image" className="post-image"/>
-                        <div className="post-content">
-                            <h3 className="post-title">{post.username}'s question: <span>{post.question}</span></h3>
-                            <p></p>
+                        <div className="post-content answer">
+
+                            <h3 className="post-title">{post.username}'s says: <span>{post.question}</span></h3>
                             <br/>
                             <h3 className="post-title">{post.username}'s mood: <span>{post.mood}</span></h3>
                             <br/>
-                            <div className="answer">
+                            <div>
                                 <h2>AI answer:</h2>
                                 <p className="post-description pad">{post.description.length > 200
                                     ? post.description.slice(0, 200) + "..."
                                     : post.description}</p>
-
-
                                 <button onClick={()=>viewPost(post._id)} className="btn btn-secondary">VIEW POST</button>
-
                             </div>
-                            {/*{loggedUser && post.user_id?.toString() === loggedUser.id?.toString() && (*/}
-                            {/*    <button*/}
-                            {/*        className="btn gap10"*/}
-                            {/*        onClick={() => deletePost(post._id)}>Delete</button>*/}
-
-                            {/*    )}*/}
-                            {/*{loggedUser && post.user_id?.toString() === loggedUser.id?.toString() && (*/}
-                            {/*    <button*/}
-                            {/*        className="btn"*/}
-                            {/*        onClick={() => editPost(post)}>Edit Post</button>*/}
-                            {/*)}*/}
                         </div>
                     </div>
                 )}

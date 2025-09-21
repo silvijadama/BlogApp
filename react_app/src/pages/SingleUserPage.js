@@ -9,9 +9,6 @@ const SingleUserPage = ({loggedUser}) => {
     const{ username } = useParams()
     const [user, setUser] = useState(null)
     const [posts, setPosts] = useState([])
-    // const [lastPoke, setLastPoke] = useState(null)
-    // const [pokes, setPokes] = useState([])
-
 
 
     useEffect(() => {
@@ -32,21 +29,8 @@ const SingleUserPage = ({loggedUser}) => {
             .then(data =>{
                 console.log(data.posts, "All posts of single user")
                 setPosts(data.posts)
-
             })
-    }, []);
-
-    // useEffect(() => {
-    //
-    //     socket.on("userWhoPokedYou", (userWhoPokedSomeone) =>{
-    //         console.log("This is users who poked another user array:", userWhoPokedSomeone)
-    //         setPokes(prev => [...prev, { username: userWhoPokedSomeone.username, _id: Date.now() }])
-    //
-    //         setLastPoke(userWhoPokedSomeone.username)
-    //         setTimeout(() => setLastPoke(null), 5000)
-    //     })
-    //     return () => socket.off("userWhoPokedYou")
-    // }, []);
+    }, [username]);
 
     if (!user) return <p>Loading...</p>;
 
@@ -76,7 +60,7 @@ const SingleUserPage = ({loggedUser}) => {
                             <p  className="post-user">Username: <span>{user.username}</span></p>
                             <p className="post-user margin-btm">User email: <span>{user.email}</span></p>
                             <button onClick={() =>poke(user._id)} className="btn"
-                                    disabled={loggedUser && loggedUser.id === user._id}>Poke!</button>
+                                    disabled={!loggedUser}>Poke!</button>
                         </div>
                     </div>
                 </div>

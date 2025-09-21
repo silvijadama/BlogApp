@@ -9,7 +9,6 @@ const LiveChatPage = ({loggedUser}) => {
 
     useEffect(() => {
         if(loggedUser){
-            // get logged username from server//
             socket.emit("userConnected", loggedUser.username)
         }
         socket.on("onlineUsersUpdated", (newUser) =>{

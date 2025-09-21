@@ -8,7 +8,7 @@ const Toolbar = ({loggedUser, setLoggedUser}) => {
     function logout(){
         localStorage.clear()
         setLoggedUser (null)
-        navigate("/login")
+        navigate("/posts")
     }
 
     return (
@@ -17,7 +17,12 @@ const Toolbar = ({loggedUser, setLoggedUser}) => {
             <nav className="navbar">
                 <ul className="flex gap10 j-space-evenly">
                     <li><Link to="/posts" className="navbar">Home</Link></li>
-                    <li><Link to="/chat" className="navbar">Live Chat! 💬</Link></li>
+
+                    {loggedUser && (
+                        <Link to={`/chat`} className="navbar">
+                            Live Chat! 💬
+                        </Link>
+                    )}
 
                     {!loggedUser && (
                         <Link to={`/register`} className="navbar">
@@ -37,7 +42,7 @@ const Toolbar = ({loggedUser, setLoggedUser}) => {
                     )}
                     {loggedUser && (
                         <Link
-                            to="/login"
+                            to="/posts"
                             className="navbar"
                             onClick={(e) => {
                                 e.preventDefault();

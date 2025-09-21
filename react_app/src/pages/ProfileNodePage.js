@@ -43,17 +43,6 @@ const ProfileNodePage = () => {
                 })
         }, []);
 
-    // useEffect(() => {
-    //
-    //     socket.on("userWhoPokedYou", (userWhoPokedSomeone) =>{
-    //         console.log("This is users who poked another user array:", userWhoPokedSomeone)
-    //         setPokes(prev => [...prev, { username: userWhoPokedSomeone.username, _id: Date.now() }])
-    //
-    //         setLastPoke(userWhoPokedSomeone.username)
-    //         setTimeout(() => setLastPoke(null), 5000)
-    //     })
-    //     return () => socket.off("userWhoPokedYou")
-    // }, []);
 
     if (!user) return <p>Loading...</p>;
 
@@ -63,26 +52,28 @@ const ProfileNodePage = () => {
 
 
     return (
-        <div className=" flex j-space-between gap10 pad">
+        <div className="flex j-center">
+            <div className="flex">
                 <div key={user._id} className="card">
                     <div>Username: {user.username}</div>
                     <div>Email: {user.email}</div>
                     <button onClick={editProfile} className="btn btn-primary">Edit profile</button>
                 </div>
-
-
+            </div>
 
                 {/*poke history*/}
-                <div>
-                    <h2>Poke History</h2>
+            <div className="flex flex-column">
+                <h2>Poke History</h2>
+                <div className="comments-container">
                     {pokes.map(user =>(
-                        <div key={user._id} className="flex j-space-between pad card margin-btm">
-                            <div>User:</div>
+                        <div key={user._id} className="card margin-btm">
+                            <div>Poked by:</div>
                             <div>{user.username}</div>
                         </div>
                     ))}
                 </div>
-        {/*    end poke history div*/}
+            </div>
+
 
         </div>
     );

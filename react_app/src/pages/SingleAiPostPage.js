@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {useParams} from "react-router-dom";
 
-const SingleAiPostPage = () => {
+const SingleAiPostPage = ({loggedUser}) => {
 
     const { postId } = useParams();   //  get postId from URL
     const commentInput = useRef();
@@ -24,6 +24,7 @@ const SingleAiPostPage = () => {
     function addComment(){
         const token = localStorage.getItem("token")
         const comment = commentInput.current.value
+        commentInput.current.value=""
 
         if(!comment) return
 
@@ -42,33 +43,40 @@ const SingleAiPostPage = () => {
                     alert(data.message || "Error adding comment");
                 }
             })
-
     }
 
     return (
-        <div className="flex j-center gap10">
-            <div className="card pad">
-                <img src={data.image} alt="Post Image" className="post-image"/>
-                <div className="post-content">
-                    <p  className="post-user">Posted by: <span>{data.username}</span></p>
-                    <p className="post-description margin-btm">{data.description}</p>
-                    <div className="flex j-space-between gap10">
-                        <input type="text" placeholder="add comment" ref={commentInput}/>
-                        <button onClick={addComment} className="btn btn-secondary">Comment!</button>
+        <div className="flex j-center">
+            <div className="flex">
+                <div className="card pad">
+                    <img src={data.image} alt="Post Image" className="post-image"/>
+                    <div className="post-content">
+                        <p className="post-user">Posted by: <span>{data.username}</span></p>
+                        <p className="post-description margin-btm">{data.description}</p>
+                        <div className="flex j-space-between gap10">
+                            <input disabled={!loggedUser} type="text" placeholder="add comment" ref={commentInput}/>
+                            <button
+                                onClick={addComment}
+                                disabled={!loggedUser}
+                                className="btn btn-secondary"
+                            >
+                                Comment!
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
 
-
-
-            <div className="flex flex-column gap10 pad">
+            <div className="flex flex-column">
                 <h2>Comments</h2>
-                {data.comments.map((com, index) =>
-                    <div key={index} className="card pad">
-                        <p>{com.text}</p>
-                        <p>Commented by: {com.username}</p>
-                    </div>
-                )}
+                <div className="comments-container">
+                    {data.comments.map((com, index) => (
+                        <div key={index} className="card pad">
+                            <p>{com.text}</p>
+                            <p>Commented by: {com.username} at ({new Date().toLocaleTimeString()})</p>
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
     );

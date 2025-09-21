@@ -28,10 +28,7 @@ const LoginPage = (props) => {
 
                 if (data.success) {
                     localStorage.setItem("token", data.token)
-
                     props.setLoggedUser(data.user)
-                    console.log("current logged in user:", props.loggedUser)
-                    alert("logged in successfully!")
                     navigate("/posts")
                     return
                 }
