@@ -242,7 +242,7 @@ module.exports = {
         try{
             const loggedUserId = req.user.id
             const loggedUser = await userDb.findById(loggedUserId).populate("pokedUsersArr", "username email")
-            console.log(loggedUser, "currently logged user and pokes array", loggedUser.pokedUsersArr)
+            // console.log(loggedUser, "currently logged user and pokes array", loggedUser.pokedUsersArr)
 
             if(!loggedUser){
                 return res.json({success: false, message: "User not found"})
@@ -261,7 +261,7 @@ module.exports = {
             const userId = req.params.id
             let singleUserInfo = await userDb.findById(userId)
 
-            console.log(singleUserInfo, "This is single user, found by ID")
+            // console.log(singleUserInfo, "This is single user, found by ID")
 
             return res.json({ success: true, user: singleUserInfo })
 

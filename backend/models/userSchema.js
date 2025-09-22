@@ -17,7 +17,6 @@ const userSchema = new Schema({
     },
     pokedUsersArr: [{
         type: Schema.Types.ObjectId,
-        time: new Date(),
         ref: "User" }]
 })
 

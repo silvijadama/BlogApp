@@ -1,6 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {useParams} from "react-router-dom";
 
+
 const SingleAiPostPage = ({loggedUser}) => {
 
     const { postId } = useParams();   //  get postId from URL
@@ -73,7 +74,10 @@ const SingleAiPostPage = ({loggedUser}) => {
                     {data.comments.map((com, index) => (
                         <div key={index} className="card pad">
                             <p>{com.text}</p>
-                            <p>Commented by: {com.username} at ({new Date().toLocaleTimeString()})</p>
+                            <p>Commented by: {com.username} at ({new Date(com.timestamp).toLocaleTimeString([], {
+                                hour: "2-digit",
+                                minute: "2-digit"
+                            })})</p>
                         </div>
                     ))}
                 </div>

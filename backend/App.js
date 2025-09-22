@@ -22,6 +22,7 @@ const connectedUsersList = []
 
 function isUserConnected(newlyLoggedUser){
     for (const user of connectedUsersList) {
+        // console.log(`Is same user user: "${user.id}", newly logged user: "${newlyLoggedUser.id}"`, user, newlyLoggedUser)
         if (user.username === newlyLoggedUser) {
             return true
         }

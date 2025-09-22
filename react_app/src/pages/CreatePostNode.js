@@ -12,7 +12,6 @@ const CreatePostPage = ({loggedUser}) => {
     const selectedMood = useStore((state) => state.selectedMood)
 
 
-
     function createPost() {
 
         const token = localStorage.getItem("token")

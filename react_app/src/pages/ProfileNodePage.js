@@ -3,15 +3,19 @@ import {useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {socket} from "../socket";
 
-const ProfileNodePage = () => {
+const ProfileNodePage = ({loggedUser}) => {
     const [pokes, setPokes] = useState([])
     const [user, setUser] = useState(null)
-    const{ id } = useParams()
-    const navigate = useNavigate()
-    // const [lastPoke, setLastPoke] = useState(null)
 
+    const navigate = useNavigate()
     useEffect(() => {
+
+        if (!loggedUser){
+            return
+        }
+        const id = loggedUser.id
         console.log(id, "username using username params")
+
         fetch(`http://localhost:2500/api/profile/${id}`,
             {
             headers: { authorization: localStorage.getItem("token") }
@@ -22,7 +26,7 @@ const ProfileNodePage = () => {
                 setUser(data.user)
 
             })
-    }, [id]);
+    }, [loggedUser]);
 
 
     useEffect(() => {
@@ -44,10 +48,11 @@ const ProfileNodePage = () => {
         }, []);
 
 
+    if (!loggedUser) return <p>Loading...</p>;
     if (!user) return <p>Loading...</p>;
 
     function editProfile(){
-        navigate(`/profile/${user._id}/edit`)
+        navigate(`/profile/edit`)
     }
 
 

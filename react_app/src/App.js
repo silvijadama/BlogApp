@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import RegisterNodePage from "./pages/RegisterNodePage";
 import LoginNodePage from "./pages/LoginNodePage";
 import CreatePostNode from "./pages/CreatePostNode";
-import AllPostNode from "./pages/AllPostNode";
+import HomePage from "./pages/HomePage";
 import ProfileNodePage from "./pages/ProfileNodePage";
 import ToolbarMenu from "./components/ToolbarMenu";
 import SingleAiPostPage from "./pages/SingleAiPostPage";
@@ -96,6 +96,13 @@ function App() {
                     setLastPoke={setLastPoke}
                 />
                 <Routes>
+                    <Route path="/posts" element={
+                        <HomePage
+                            loggedUser={loggedUser}
+                            getPosts={getPosts}
+                            setPosts={setPosts}
+                        />
+                    } />
                     <Route path="/register" element={<RegisterNodePage/>} />
                     <Route path="/login" element={
                         <LoginNodePage
@@ -108,13 +115,6 @@ function App() {
                             loggedUser={loggedUser}
                         />
                     } />
-                    <Route path="/posts" element={
-                        <AllPostNode
-                            loggedUser={loggedUser}
-                            getPosts={getPosts}
-                            setPosts={setPosts}
-                        />
-                    } />
 
                     <Route path="/posts/id/:postId/" element={
                         <SingleAiPostPage
@@ -123,10 +123,10 @@ function App() {
                             setPosts={setPosts}
                         />
                     } />
-                    <Route path="/api/edit" element={
-                        <EditPostNode
+                    <Route path="/profile/edit" element={
+                        <EditProfilePage
                             loggedUser={loggedUser}
-                            getPosts={getPosts}
+                            setLoggedUser={setLoggedUser}
                         />
                     } />
 
@@ -136,8 +136,10 @@ function App() {
                     <Route path="/posts/user/:username" element={<SingleUserPage
                             loggedUser={loggedUser}
                     />}/>
-                    <Route path="/profile/:id" element={<ProfileNodePage/>}/>
-                    <Route path="/profile/:id/edit" element={<EditProfilePage/>}/>
+                    <Route path="/profile" element={<ProfileNodePage
+                        loggedUser={loggedUser}
+                    />}/>
+                    {/*<Route path="/profile/edit" element={<EditProfilePage/>}/>*/}
                 </Routes>
             </BrowserRouter>
         </div>

@@ -36,7 +36,7 @@ const Toolbar = ({loggedUser, setLoggedUser}) => {
                     )}
 
                     {loggedUser && (
-                        <Link to={`/profile/${loggedUser?.id}`} className="navbar">
+                        <Link to={`/profile`} className="navbar">
                              {loggedUser.username}'s profile
                         </Link>
                     )}

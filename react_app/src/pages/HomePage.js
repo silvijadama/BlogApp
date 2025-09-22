@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useNavigate, Link} from "react-router-dom";
 
 
-const AllPostNode = ({setPosts, getPosts, loggedUser}) => {
+const HomePage = ({setPosts, getPosts, loggedUser}) => {
 
     const navigate = useNavigate()
     const [sortOrder, setSortOrder] = useState("")
@@ -146,4 +146,4 @@ const AllPostNode = ({setPosts, getPosts, loggedUser}) => {
     );
 };
 
-export default AllPostNode;
+export default HomePage;
